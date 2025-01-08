@@ -33,62 +33,6 @@ const colors = [
 ];
 // Массив цветов, используемых для раскраски сегментов колеса.
 
-// function drawWheel() {
-//     // Функция для отрисовки колеса.
-//     const numSegments = variables.length;
-//     // Количество сегментов определяется числом добавленных переменных.
-
-//     const radius = canvas.width / 2;
-//     // Радиус колеса, равен половине ширины canvas.
-
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     // Очищаем весь canvas перед рисованием.
-
-//     if (numSegments === 0) {
-//         // Если переменные не добавлены, показываем сообщение "Добавьте переменные".
-//         ctx.fillStyle = '#ccc';
-//         ctx.beginPath();
-//         ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
-//         ctx.fill();
-//         ctx.fillStyle = '#000';
-//         ctx.textAlign = 'center';
-//         ctx.textBaseline = 'middle';
-//         ctx.font = '20px Arial';
-//         ctx.fillText('Добавьте переменные', radius, radius);
-//         return;
-//     }
-
-//     const angleStep = (2 * Math.PI) / numSegments;
-//     // Угол одного сегмента колеса.
-
-//     for (let i = 0; i < numSegments; i++) {
-//         // Цикл для отрисовки каждого сегмента.
-//         const startAngle = currentAngle + i * angleStep;
-//         // Начальный угол сегмента.
-//         const endAngle = startAngle + angleStep;
-//         // Конечный угол сегмента.
-
-//         ctx.fillStyle = colors[i % colors.length];
-//         // Цвет сегмента берётся из массива цветов по циклу.
-
-//         ctx.beginPath();
-//         ctx.moveTo(radius, radius);
-//         ctx.arc(radius, radius, radius, startAngle, endAngle);
-//         ctx.closePath();
-//         ctx.fill();
-//         // Рисуем сегмент.
-
-//         ctx.fillStyle = '#000';
-//         ctx.save();
-//         ctx.translate(radius, radius);
-//         ctx.rotate(startAngle + angleStep / 2);
-//         ctx.textAlign = 'right';
-//         ctx.font = '16px Arial';
-//         ctx.fillText(variables[i], radius - 10, 0);
-//         ctx.restore();
-//         // Добавляем текст (имя переменной) в сегмент.
-//     }
-// }
 function drawWheel() {
     const numSegments = variables.length;
     const radius = canvas.width / 2;
@@ -132,32 +76,6 @@ function drawWheel() {
     }
 }
 
-// function addVariable() {
-//     // Функция для добавления переменной в массив.
-//     const input = document.getElementById('inputVariable');
-//     // Получаем поле ввода.
-
-//     const value = input.value.trim();
-//     // Забираем текст из поля ввода, удаляя пробелы.
-
-//     if (value === '') {
-//         // Если текст пустой, показываем предупреждение.
-//         alert('Введите переменную!');
-//         return;
-//     }
-
-//     variables.push(value);
-//     // Добавляем переменную в массив.
-
-//     input.value = '';
-//     // Очищаем поле ввода.
-
-//     updateVariableList();
-//     // Обновляем список переменных.
-
-//     drawWheel();
-//     // Перерисовываем колесо.
-// }
 function addVariable() {
     const input = document.getElementById('inputVariable');
     const value = input.value.trim();
@@ -217,83 +135,12 @@ function updateVariableList() {
     });
 }
 
-// function removeVariable(index) {
-//     // Функция для удаления переменной из массива.
-//     variables.splice(index, 1);
-//     // Удаляем переменную по индексу.
-
-//     updateVariableList();
-//     // Обновляем список переменных.
-
-//     drawWheel();
-//     // Перерисовываем колесо.
-// }
-
-// function spinWheel() {
-//     // Функция для запуска вращения колеса.
-//     if (variables.length === 0) {
-//         // Если переменные не добавлены, показываем предупреждение.
-//         alert('Добавьте хотя бы одну переменную для вращения!');
-//         return;
-//     }
-
-//     if (spinning) return;
-//     // Если колесо уже вращается, игнорируем повторный вызов.
-
-//     spinning = true;
-//     const spinAngle = Math.random() * 360 + 3600;
-//     // Рассчитываем случайный угол вращения (минимум 10 оборотов).
-
-//     const spinDuration = 5000;
-//     // Длительность вращения (5 секунд).
-
-//     const startTime = performance.now();
-//     // Время начала вращения.
-
-//     const angleStep = 360 / variables.length;
-//     // Угол одного сегмента.
-
-//     function animateSpin(time) {
-//         // Функция анимации вращения.
-//         const elapsedTime = time - startTime;
-//         // Сколько времени прошло.
-
-//         const angle = easeOutCubic(elapsedTime, 0, spinAngle, spinDuration);
-//         // Рассчитываем текущий угол с использованием функции easing.
-
-//         currentAngle = (angle * Math.PI) / 180;
-//         // Преобразуем угол в радианы.
-
-//         drawWheel();
-//         // Перерисовываем колесо.
-
-//         if (elapsedTime < spinDuration) {
-//             requestAnimationFrame(animateSpin);
-//         } else {
-//             spinning = false;
-//             const finalAngle = (spinAngle % 360 + 360) % 360;
-//             // Вычисляем конечный угол.
-
-//             const chosenIndex = Math.floor((variables.length - Math.floor(finalAngle / angleStep)) % variables.length);
-//             // Определяем индекс выбранного сегмента.
-
-//             // alert(`Выбранный элемент: ${variables[chosenIndex]}`);
-//             // Показываем выбранную переменную.
-//         }
-//     }
-
-//     requestAnimationFrame(animateSpin);
-//     // Запускаем анимацию.
-// }
 function removeVariable(index) {
     variables.splice(index, 1);
     currentAngle = 0; // Сбрасываем текущий угол
     updateVariableList();
     drawWheel();
 }
-
-
-
 function spinWheel() {
     if (variables.length === 0) {
         alert('Добавьте хотя бы одну переменную для вращения!');
@@ -334,11 +181,6 @@ function spinWheel() {
 
     requestAnimationFrame(animateSpin);
 }
-
-
-
-
-
 document.addEventListener("keydown", function (event) {
     // Слушатель глобальных клавиш. При нажатии Ctrl + '.' имитируется клик на кнопку вращения.
     if (event.ctrlKey && event.key === "Shift") {
